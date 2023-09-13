@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  a post with formatting and links
-date:   2015-03-15
-description: march & april, looking forward to summer
+title:  Transitivity of the Subformula Relation for Propositional Logic
+date:   2023-09-13
+description: Exercise 2.1.3 from Dalen's "Logic and Structure", 5th edition.
 tags: formatting links
 categories: sample-posts
 ---
