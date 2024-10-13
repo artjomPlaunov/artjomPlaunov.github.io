@@ -161,7 +161,7 @@ isolation" and "repeatable reads" are the same, I still want to keep the
 focus on various definitions of repeatable reads. So I will not go further
 into snapshot isolation.
 
-
+TODO: further definitions of repeatable reads coming...
 
 
 
