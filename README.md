@@ -1,1 +1,0 @@
-# artjomPlaunov.github.io
