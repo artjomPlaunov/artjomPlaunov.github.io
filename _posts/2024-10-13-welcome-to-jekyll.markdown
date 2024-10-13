@@ -130,7 +130,14 @@ committed by concurrent transactions during the transaction's execution.```
 
 This is different from the first working definition, because now we cannot
 allow another transaction to make updates before the first read. Any
-conflicting updates have to happen before the transaction starts. Let's
+conflicting updates have to happen before the transaction starts. This is
+actually snapshot isolation in PostgresSQL. It turns out that the SQL
+standard doesn't have a definition of snapshot isolation, since according
+to Kleppmann, the standard is defined based on System R's 1975 definition
+of isolation levels which came before snapshot isolation was defined. We'll
+get to the SQL definition of repeatable reads in a bit. 
+
+Let's
 modify schedule 2 now to make it work under this definition of repeatable
 reads:
 
@@ -139,7 +146,21 @@ Schedule 3: ```<S2> <W2 X> <C2> <S1> <W1 X> <R1 X> <R1 X> <C1>```
 Now we are okay; transaction 2 wrote to X and commited before transaction
 1 even began. However we can also observe something else: this schedule
 is serial! So what are the potential issues that can pop up under this
-definition that would cause conflicts? 
+definition that would cause conflicts?
+
+Since this definition is basically synonymous with snapshot isolation,
+the possible issues that can pop up are related to how snapshot isolation
+is implemented. One problem that can show up is write-skews, where
+the first transaction 1 reads something, does something related to the
+value it saw, and writes to the database based on what value it initially
+read. However by the time it finally writes to the database, it is possible
+that changes were made to the database that make the original premise
+untrue. This is a very preliminary summary of the problems that can show
+up with snapshot isolation, and although under this context "snapshot
+isolation" and "repeatable reads" are the same, I still want to keep the
+focus on various definitions of repeatable reads. So I will not go further
+into snapshot isolation.
+
 
 
 
