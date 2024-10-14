@@ -14,8 +14,7 @@ mentioned the notion of repeatable reads. I happened to be reading several
 other sources, and at first blush it seems to me like there isn't a
 definite consensus on what a repeatable read really is. In fact, one of
 the other books I'm reading, "Designing Data Intensive Applications"
-by Martin Kleppmann, goes so far as to say that "nobody really knows what
-a repeatable read means." So this is basically my starting hypothesis,
+by Martin Kleppmann, goes so far as to say that "nobody really knows what a repeatable read means." So this is basically my starting hypothesis,
 that there probably isn't a standard definition for what it is. But I'd like
 to arrive to that conclusion myself to see how that came to be.
 
