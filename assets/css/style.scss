@@ -1,0 +1,99 @@
+---
+---
+
+@import "minima";
+
+// Cozy Forest Theme Colors
+$forest-dark: #2C3E2D;    // Deep forest green
+$forest-medium: #4A6B4A;   // Pine needle
+$forest-light: #8BA888;    // Moss
+$cream: #F8F6F0;          // Parchment
+$bark: #4A3B2C;           // Tree bark
+$accent: #C17F59;         // Cedar wood
+$text-color: #2C3E2D;     // Readable dark green
+
+body {
+  background-color: $cream;
+  color: $text-color;
+  font-family: "Merriweather", Georgia, serif;
+  font-size: 18px;
+  line-height: 1.8;
+  letter-spacing: -0.003em;
+}
+
+.site-header {
+  border-top: 5px solid $forest-dark;
+  border-bottom: 1px solid rgba($forest-light, 0.3);
+  background-color: white;
+  box-shadow: 0 1px 15px rgba($forest-dark, 0.05);
+}
+
+.site-title {
+  font-family: "Source Sans Pro", sans-serif;
+  color: $forest-dark !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  
+  &:hover {
+    color: $forest-medium !important;
+    text-decoration: none;
+  }
+}
+
+.post-list {
+  li {
+    margin-bottom: 3.5rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba($forest-dark, 0.06);
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.post-link {
+  color: $forest-dark;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.8em;
+  font-weight: 700;
+  line-height: 1.3;
+  
+  &:hover {
+    color: $accent;
+    text-decoration: none;
+  }
+}
+
+.post-meta {
+  color: $forest-medium;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.site-footer {
+  background-color: $forest-dark;
+  color: $cream;
+  border-top: none;
+  padding: 2rem 0;
+  
+  a {
+    color: $forest-light;
+    
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+.page-content {
+  padding: 3rem 0;
+  
+  .wrapper {
+    max-width: 800px;
+  }
+} 
