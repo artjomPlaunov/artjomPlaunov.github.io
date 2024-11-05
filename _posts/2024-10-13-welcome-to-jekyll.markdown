@@ -32,12 +32,20 @@ in chapter 17 of the Database System Concepts textbook.
 Here is a simple example, suppose we have two transactions accessing a
 database item X.
 
-Transaction 1: ```<START1> <WRITE1 X> <READ1 X> <COMMIT1>```<br>
-Transaction 2: ```<START2> <WRITE2 X> <COMMIT2>```<br>
+<div class="transaction-block">
+  <div class="transaction">
+    Transaction 1: <code>&lt;START1&gt; &lt;WRITE1 X&gt; &lt;READ1 X&gt; &lt;READ1 X&gt; &lt;COMMIT1&gt;</code>
+  </div>
+  <div class="transaction">
+    Transaction 2: <code>&lt;START2&gt; &lt;WRITE2 X&gt; &lt;COMMIT2&gt;</code>
+  </div>
+</div>
 
 And here is what a concurrent interleaving may look like (abbreviated):
 
-Schedule 1: ```<S1> <S2> <W1 X> <W2 X> <C2> <R1 X> <C1>```
+<div class="schedule-block">
+Schedule 1: <code>&lt;S1&gt; &lt;S2&gt; &lt;W1 X&gt; &lt;R1 X&gt; &lt;W2 X&gt; &lt;C2&gt; &lt;R1 X&gt; &lt;C1&gt;</code>
+</div>
 
 There's a problem here, namely in between transaction 1 writing the
 initial value of x and then reading it again, transaction 2 jumps in the
@@ -62,7 +70,9 @@ as forbidding a transaction from accessing uncommited values.```
 
 If you return to schedule 1 from above:
 
-Schedule 1: ```<S1> <S2> <W1 X> <W2 X> <C2> <R1 X> <C1>```
+<div class="schedule-block">
+Schedule 1: <code>&lt;S1&gt; &lt;S2&gt; &lt;W1 X&gt; &lt;R1 X&gt; &lt;W2 X&gt; &lt;C2&gt; &lt;R1 X&gt; &lt;C1&gt;</code>
+</div>
 
 This is actually okay under the read-commited isolation level. Since
 transaction 2 made a commit of its write, transaction 1 is allowed to read
@@ -90,12 +100,20 @@ This provides a little more clarity on what is meant by a read being
 one read, so the schedule is also okay under repeatable read. Let's modify
 the transactions a bit to explore repeatable reads:
 
-Transaction 1: ```<START1> <WRITE1 X> <READ1 X> <READ1 X> <COMMIT1>```<br>
-Transaction 2: ```<START2> <WRITE2 X> <COMMIT2>```<br>
+<div class="transaction-block">
+  <div class="transaction">
+    Transaction 1: <code>&lt;START1&gt; &lt;WRITE1 X&gt; &lt;READ1 X&gt; &lt;READ1 X&gt; &lt;COMMIT1&gt;</code>
+  </div>
+  <div class="transaction">
+    Transaction 2: <code>&lt;START2&gt; &lt;WRITE2 X&gt; &lt;COMMIT2&gt;</code>
+  </div>
+</div>
 
 Here we just inserted a second read operation for the first transaction. Now if we were to have the following schedule:
 
-Schedule 1: ```<S1> <S2> <W1 X> <R1 X> <W2 X> <C2> <R1 X> <C1>```
+<div class="schedule-block">
+Schedule 1: <code>&lt;S1&gt; &lt;S2&gt; &lt;W1 X&gt; &lt;R1 X&gt; &lt;W2 X&gt; &lt;C2&gt; &lt;R1 X&gt; &lt;C1&gt;</code>
+</div>
 
 we have a schedule that is not permissible under repeatable reads, but would
 be allowed under a read-commited isolation level. After the first read
