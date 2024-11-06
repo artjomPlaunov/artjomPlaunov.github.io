@@ -1,0 +1,8 @@
+---
+layout: post
+title:  Simple DB in OCaml
+date:   2024-11-5 15:06:35 -0400
+categories: database ocaml
+---
+
+I've been following along with Edward Sciore's book on database design and implementation as part of the online book club that Phil Eaton is hosting. My friend Tony and I started rewriting the java code in OCaml.
