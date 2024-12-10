@@ -13,5 +13,8 @@ Chapte 3 does an initial codegen pass using the lexer and parser from the previo
 
 Take the code from chapter 3 and reorganize it into separate modules. I just prefer it this way to having multiple files. This starting point is available on my github as the "beginnings" branch, which just splits up this code into separate modules, and also gets rid of the global LLVM context, to avoid polluting the global namespace of the program. The build script is in build.sh, and it assumed llvm is installed. 
 
+Get acquainted with the code base, and see you soon for the next challenge, where we will make some extensions to the codegen pass!
+
+
 
 
