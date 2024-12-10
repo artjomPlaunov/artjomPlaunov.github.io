@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Getting Acquainted with LLVM Codegen
+title:  Getting Acquainted with LLVM, Part 1
 date:   2024-12-9 15:06:35 -0400
 categories: llvm compilers
 ---
