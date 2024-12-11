@@ -90,7 +90,3 @@ entry:
   ret double %negtemp1
 }
 ```
-
-## Challenge 4: Add exponentiation
-
-May have to look into Intrinsic for this one. 
