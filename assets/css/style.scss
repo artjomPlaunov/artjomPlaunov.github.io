@@ -3,39 +3,185 @@
 
 @import "minima";
 
-// Cozy Forest Theme Colors
-$forest-dark: #2C3E2D;    // Deep forest green
-$forest-medium: #4A6B4A;   // Pine needle
-$forest-light: #8BA888;    // Moss
-$cream: #F8F6F0;          // Parchment
-$bark: #4A3B2C;           // Tree bark
-$accent: #C17F59;         // Cedar wood
-$text-color: #2C3E2D;     // Readable dark green
+// Forest Theme Colors
+$forest-dark: #1e3a1e;    // Deep forest green background
+$forest-medium: #2d4a2d;  // Medium forest green for code blocks
+$forest-light: #3a5a3a;   // Light forest green for accents
+$text-light: #e0e0e0;     // Light text
+$accent-gold: #d4af37;    // Gold accent color
+$border-color: #2a3a2a;   // Dark green border
 
+// Code block colors
+$code-text: #d8e0d8;      // Light green text
+$code-keyword: #ffd700;   // Gold keywords
+$code-string: #98c379;    // Light green strings
+$code-number: #d19a66;    // Orange numbers
+$code-comment: #7a8a7a;   // Grey-green comments
+$code-function: #61afef;  // Blue functions
+$code-type: #e5c07b;      // Yellow types
+$code-operator: #56b6c2;  // Cyan operators
+
+// Global forest theme styles
+body, 
+div, 
+section, 
+article, 
+aside, 
+header, 
+footer, 
+nav, 
+main {
+  background-color: $forest-dark;
+  color: $text-light;
+}
+
+// Text elements
+h1, h2, h3, h4, h5, h6,
+p, li, a, span, strong, em,
+blockquote, cite, figcaption {
+  color: $text-light;
+}
+
+// Links
+a {
+  color: $accent-gold;
+  text-decoration: none;
+  
+  &:hover {
+    color: lighten($accent-gold, 10%);
+  }
+}
+
+// Code and pre blocks
+pre, code {
+  font-family: "IBM Plex Mono", "Menlo", "DejaVu Sans Mono", monospace;
+  background-color: $forest-medium !important;
+  border: 1px solid $border-color;
+  color: $code-text;
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
+  font-size: 1.1em;
+}
+
+pre {
+  padding: 1em;
+  overflow-x: auto;
+  line-height: 1.5;
+  margin: 1.5em 0;
+  background-color: $forest-medium !important;
+  font-size: 1.1em;
+  
+  code {
+    background-color: transparent !important;
+    border: none;
+    padding: 0;
+    font-size: 0.9em;
+  }
+}
+
+// Syntax highlighting
+.highlight {
+  background-color: $forest-medium !important;
+  border-radius: 4px;
+  border: 1px solid $border-color;
+  margin: 1.5em 0;
+  font-size: 1.1em;
+  
+  pre {
+    margin: 0;
+    padding: 1em;
+    background-color: $forest-medium !important;
+    font-size: 0.9em;
+  }
+  
+  // Keyword
+  .k, .kd, .kt {
+    color: $code-keyword;
+  }
+  
+  // String
+  .s, .s1, .s2 {
+    color: $code-string;
+  }
+  
+  // Number
+  .mi, .mf {
+    color: $code-number;
+  }
+  
+  // Comment
+  .c, .cm, .c1 {
+    color: $code-comment;
+    font-style: italic;
+  }
+  
+  // Function
+  .nf, .nc {
+    color: $code-function;
+  }
+  
+  // Type
+  .kt, .nc {
+    color: $code-type;
+  }
+  
+  // Operator
+  .o, .p {
+    color: $code-operator;
+  }
+  
+  // Variable
+  .nv, .vc {
+    color: $code-text;
+  }
+}
+
+// Tables
+table {
+  background-color: $forest-medium;
+  border: 1px solid $border-color;
+  
+  th, td {
+    border: 1px solid $border-color;
+    color: $text-light;
+  }
+}
+
+// Forms
+input, textarea, select {
+  background-color: $forest-medium;
+  border: 1px solid $border-color;
+  color: $text-light;
+  
+  &:focus {
+    border-color: $accent-gold;
+    outline: none;
+  }
+}
+
+// Main body styles
 body {
-  background-color: $cream;
-  color: $text-color;
-  font-family: "Merriweather", Georgia, serif;
-  font-size: 18px;
+  font-family: "IBM Plex Mono", "Menlo", "DejaVu Sans Mono", monospace;
+  font-size: 28px;
   line-height: 1.8;
   letter-spacing: -0.003em;
 }
 
 .site-header {
-  border-top: 5px solid $forest-dark;
-  border-bottom: 1px solid rgba($forest-light, 0.3);
-  background-color: white;
-  box-shadow: 0 1px 15px rgba($forest-dark, 0.05);
+  border-top: 5px solid $accent-gold;
+  border-bottom: 1px solid $border-color;
+  background-color: $forest-dark;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.2);
 }
 
 .site-title {
   font-family: "Source Sans Pro", sans-serif;
-  color: $forest-dark !important;
+  color: $text-light !important;
   font-weight: 700;
   letter-spacing: -0.02em;
   
   &:hover {
-    color: $forest-medium !important;
+    color: $accent-gold !important;
     text-decoration: none;
   }
 }
@@ -44,9 +190,9 @@ body {
   li {
     margin-bottom: 3.5rem;
     padding: 2rem;
-    background: white;
+    background: $forest-medium;
     border-radius: 12px;
-    box-shadow: 0 2px 15px rgba($forest-dark, 0.06);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease;
     
     &:hover {
@@ -56,35 +202,35 @@ body {
 }
 
 .post-link {
-  color: $forest-dark;
+  color: $text-light;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1.8em;
   font-weight: 700;
   line-height: 1.3;
   
   &:hover {
-    color: $accent;
+    color: $accent-gold;
     text-decoration: none;
   }
 }
 
 .post-meta {
-  color: $forest-medium;
+  color: #a0b0a0;
   font-style: italic;
   font-size: 0.9em;
 }
 
 .site-footer {
   background-color: $forest-dark;
-  color: $cream;
-  border-top: none;
+  color: $text-light;
+  border-top: 1px solid $border-color;
   padding: 2rem 0;
   
   a {
-    color: $forest-light;
+    color: #a0b0a0;
     
     &:hover {
-      color: white;
+      color: $accent-gold;
       text-decoration: none;
     }
   }
@@ -94,27 +240,27 @@ body {
   padding: 3rem 0;
   
   .wrapper {
-    max-width: 1000px;
+    max-width: 1400px;
   }
 }
 
 .transaction-block {
-  background: white;
+  background: $forest-medium;
   padding: 1.5rem;
   border-radius: 8px;
-  border-left: 4px solid $forest-medium;
+  border-left: 4px solid $accent-gold;
   margin: 2rem 0;
-  box-shadow: 0 2px 15px rgba($forest-dark, 0.06);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
 
 .transaction {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 0.9em;
-  color: $forest-dark;
+  color: $text-light;
   padding: 0.5rem 0;
   
   &:first-of-type {
-    border-bottom: 1px solid rgba($forest-light, 0.3);
+    border-bottom: 1px solid $border-color;
     padding-bottom: 1rem;
   }
   
@@ -124,18 +270,51 @@ body {
 }
 
 .schedule-block {
-  background: rgba($forest-light, 0.1);
+  background: $forest-medium;
   padding: 1.5rem;
   border-radius: 8px;
   margin: 1.5rem 0;
-  border: 1px solid rgba($forest-light, 0.3);
+  border: 1px solid $border-color;
   
   code {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 0.9em;
-    background: white;
+    background: $forest-dark;
     padding: 0.3em 0.5em;
     border-radius: 4px;
-    border: 1px solid rgba($forest-light, 0.2);
+    border: 1px solid $border-color;
   }
+}
+
+// Header styles
+h1, h2, h3, h4, h5, h6 {
+  color: $accent-gold;
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.2em;
+  border-bottom: 2px solid $border-color;
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  font-size: 1.8em;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.3em;
+}
+
+h5, h6 {
+  font-size: 1.1em;
 } 
