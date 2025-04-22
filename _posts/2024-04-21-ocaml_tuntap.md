@@ -86,7 +86,7 @@ For the usual network interfaces, for example eth0, there is a physical media ba
 
 ## ocaml-tuntap
 
-The way a TUN or TAP interface is created is via an ioctl system call on /dev/net/tun. This requires calling C code since ioctl is not provided in OCaml. The ocaml-tuntap library implements this, and is part of the MirageOS project which I thought was a neat connection. You can take a look at the source code, and see some of the ioctl stubs:
+The way a TUN or TAP device is created is via an ioctl system call on /dev/net/tun. This requires calling C code since ioctl is not provided in OCaml. The ocaml-tuntap library implements this, and is part of the MirageOS project which I thought was a neat connection. You can take a look at the source code, and see some of the ioctl stubs:
 
 ```c
 //turntap_stubs.c
@@ -98,7 +98,7 @@ The way a TUN or TAP interface is created is via an ioctl system call on /dev/ne
 ...
 ...
 ```
-Upon successful return you get a file descriptor corresponding to the virtual network interface. Now, if you read from the file descriptor you get an entire IP packet (you do not have to repeatedly call Unix.read to read the right amount of bytes).  
+Upon successful return you get a file descriptor corresponding to the virtual network device. Now, if you read from the file descriptor you get an entire IP packet (you do not have to repeatedly call Unix.read to read the right amount of bytes).  
 
 ## tun.ml
 
@@ -310,10 +310,10 @@ Header (IHL: 20 bytes):
 40 01 c7 92 
 0a 00 00 01 
 0a 00 00 03 
+Payload
+...
+...
 ```
-
-I did not include the payload of the packet, but I included the parsed pretty printing along with the raw hexdump of the IP packet header. 
-
 Now there is basic infrastructure set up to go about implementing TCP as a user space program! The full code can be found on my [github](https://github.com/artjomPlaunov/my_tcp).
 
 ## Sources
