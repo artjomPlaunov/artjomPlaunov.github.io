@@ -8,7 +8,10 @@ tags: [ocaml, tun, tap, networking, packet-parsing, systems-programming]
 
 
 
-As I set out to implement TCP in OCaml, I ran up against a very simple problem: where should my TCP be implemented? I have an existing kernel space TCP running on my system, and I want to implement my own TCP as a user space program. The solution to this is TUN/TAP (as opposed to raw sockets, as I will explain below), which is what I will go into. TUN/TAP allows you to implement a user space program that can read IP packets over a virtual network interface. 
+As I set out to implement TCP in OCaml, I ran up against a very simple problem: where should it go? There is an existing kernel space tcp, and I want to implement my own as a user space program. The solution to this is TUN/TAP. TUN/TAP allows you to implement a user space program that can read IP packets over a virtual network device.
+
+> [note] This post is a very intuitive overview as someone learning this stuff for the first time. It can be seen as the mental hurdles I faced trying to learn what tun/tap was about, and how I filled them in. 
+
 
 ## Why not raw sockets? 
 
@@ -16,7 +19,39 @@ TCP is a protocol that provides guarantees on top of an unreliable packet delive
 
 ## TUN/TAP
 
-Instead, we can create a virtual network interface. I can best explain what is going on with a diagram: 
+Instead, we can create a virtual network device. The [linux kernel tun/tap docs](https://www.kernel.org/doc/Documentation/networking/tuntap.txt) are a good source to understand why we need tun/tap: 
+
+```
+1. Description
+  TUN/TAP provides packet reception and transmission for user space programs. 
+  It can be seen as a simple Point-to-Point or Ethernet device, which,
+  instead of receiving packets from physical media, receives them from 
+  user space program and instead of sending packets via physical media 
+  writes them to the user space program. 
+
+  In order to use the driver a program has to open /dev/net/tun and issue a
+  corresponding ioctl() to register a network device with the kernel. A network
+  device will appear as tunXX or tapXX, depending on the options chosen. When
+  the program closes the file descriptor, the network device and all
+  corresponding routes will disappear.
+
+  Depending on the type of device chosen the userspace program has to read/write
+  IP packets (with tun) or ethernet frames (with tap). Which one is being used
+  depends on the flags given with the ioctl().
+```
+
+I also found this paragraph very insightful:
+
+```
+3. How does Virtual network device actually work ? 
+Virtual network device can be viewed as a simple Point-to-Point or
+Ethernet device, which instead of receiving packets from a physical 
+media, receives them from user space program and instead of sending 
+packets via physical media sends them to the user space program. 
+```
+
+
+I can best explain what is going on with a diagram 
 
 ```ascii
 Local Machine
@@ -24,7 +59,7 @@ Local Machine
 |                                                                    |
 |  +--------------------------------------------------------------+  |
 |  |                                                              |  |
-|  |                        Network Stack                         |  |
+|  |                 Kernel Network Stack                         |  |
 |  |                                                              |  |
 |  +--------------------------------------------------------------+  |
 |         ^                      ^                      ^            | 
@@ -33,27 +68,23 @@ Local Machine
 |  +----------------+     +----------------+     +----------------+  |
 |  |                |     |                |     |                |  |
 |  |    eth0        |     |    wlan0       |     |    tun0        |  |
-|  |  (Ethernet)    |     |   (WiFi)       |     |  (Virtual)     |  |
+|  |  (Ethernet)    |     |                |     |  (Virtual)     |  |
 |  +----------------+     +----------------+     +----------------+  |
 |         |                      |                      |            |
 |         v                      v                      v            |
 |  +----------------+     +----------------+     +----------------+  |
 |  |                |     |                |     |                |  |
-|  |  Router/       |     |  WiFi          |     |  MyTcpProgram  |  |
-|  |  Switch        |     |  Network       |     |                |  |
+|  |  Ethernernet   |     |  WiFi          |     |  MyTcpProgram  |  |
+|  |  hardware      |     |                |     |                |  |
 |  |                |     |                |     |                |  |
 |  +----------------+     +----------------+     +----------------+  |
 |                                                                    |
 +--------------------------------------------------------------------+
 ```
 
-For the usual network interfaces, for example eth0, there is a physical media backing (ethernet for example). It's an OS level abstraction that allows the OS to read and write ethernet packets from the interface, which in turn corresponds to a driver for the physical media. Using TUN, we can create a virtual network interface that instead of corresponding to physical media, corresponds to the user space program we are writing. That interface will have an IP address associated with it, so when a TCP packet is routed on our local network stack, it gets sent to the virtual tun0 interface. Then our user space program reads the packet.
-
-Even though our TCP program is running locally on the machine, and we assign a designated private local IP address, I like to think about it as almost a separate system that we are sending/receiving packets to/from. When a TCP packet on our system has an IP address that is in the virtual network space, it gets routed to the virtual interface, and our program can read the packet using the file descriptor provided by TUN/TAP. We use TUN for this purpose. If we wanted to do the same thing with ethernet packets, we would use TAP. 
+For the usual network interfaces, for example eth0, there is a physical media backing (ethernet for example). Packets are received and sent back over an ethernet device. We can think of the "physical media" of the tun device being our user space program. Instead of receiving packets from some hardware, it receives packets from our user space program. And going the other way around, when we write packets to the device, they are written to our program. 
 
 ## ocaml-tuntap
-
-
 
 The way a TUN or TAP interface is created is via an ioctl system call on /dev/net/tun. This requires calling C code since ioctl is not provided in OCaml. The ocaml-tuntap library implements this, and is part of the MirageOS project which I thought was a neat connection. You can take a look at the source code, and see some of the ioctl stubs:
 
@@ -265,8 +296,8 @@ IP Packet:
   Version: IPv4
   IHL: 5 (words)
   Total Length: 84 bytes
-  Source: 10.1.2.1
-  Destination: 10.1.2.3
+  Source: 10.0.0.1
+  Destination: 10.0.0.3
   Payload Length: 64 bytes
   Protocol: ICMP
 
@@ -275,10 +306,10 @@ IP Packet:
 Raw IP packet bytes:
 Header (IHL: 20 bytes):
 45 00 00 54 
-7c 86 40 00 
-40 01 a6 1d 
-0a 01 02 01 
-0a 01 02 03 
+5f 13 40 00 
+40 01 c7 92 
+0a 00 00 01 
+0a 00 00 03 
 ```
 
 I did not include the payload of the packet, but I included the parsed pretty printing along with the raw hexdump of the IP packet header. 
