@@ -10,7 +10,7 @@ tags: [ocaml, tun, tap, networking, packet-parsing, systems-programming]
 
 As I set out to implement TCP in OCaml, I ran up against a very simple problem: where should it go? There is an existing kernel space tcp, and I want to implement my own as a user space program. The solution to this is TUN/TAP. TUN/TAP allows you to implement a user space program that can read IP packets over a virtual network device.
 
-> [note] This post is a very intuitive overview as someone learning this stuff for the first time. It can be seen as the mental hurdles I faced trying to learn what tun/tap was about, and how I filled them in. 
+> [note] This post is a very intuitive overview as someone learning this stuff for the first time. It can be seen as the mental hurdles I faced trying to learn what tun/tap was about, and how I filled them in. This was also inspired by two other blog posts that explained using tun/tap to write a custom TCP, so I wanted to provide my own explanation of its use - [Julia-Evans](https://jvns.ca/blog/2022/09/06/send-network-packets-python-tun-tap/), [stacey-tay](https://stace.dev/rc-05-tcp-in-rust/).
 
 
 ## Why not raw sockets? 
@@ -19,7 +19,7 @@ TCP is a protocol that provides guarantees on top of an unreliable packet delive
 
 ## TUN/TAP
 
-Instead, we can create a virtual network device. The [linux kernel tun/tap docs](https://www.kernel.org/doc/Documentation/networking/tuntap.txt) are a good source to understand why we need tun/tap: 
+Instead, we can create a virtual network device. The [linux kernel tun/tap docs](https://www.kernel.org/doc/Documentation/networking/tuntap.txt) are a good source to understand why we need tun/tap. 
 
 ```
 1. Description
