@@ -1,6 +1,5 @@
 ---
 ---
-
 @import "minima";
 
 // Forest Theme Colors
@@ -126,8 +125,10 @@ pre {
   }
   
   // Module qualifier (like Bytes in Bytes.create)
-  .nn {
-    color: $code-number !important; // Using the orange color for numbers
+  pre.highlight .nn,
+  .highlight pre .nn,
+  .highlight .nn {
+    color: #d19a66 !important; // Using the exact hex color instead of variable
   }
   
   // Operator
