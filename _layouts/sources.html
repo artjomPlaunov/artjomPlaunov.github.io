@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<div class="sources">
+  <h1>Sources</h1>
+  
+  <div class="sources-list">
+    {% for source in site.sources %}
+      <div class="source-item">
+        <h2>{{ source.title }}</h2>
+        <p>{{ source.description }}</p>
+        <div class="source-meta">
+          {% if source.url %}
+            <a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">View Source</a>
+          {% endif %}
+          {% if source.date %}
+            <span class="source-date">{{ source.date | date: "%B %-d, %Y" }}</span>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div> 
