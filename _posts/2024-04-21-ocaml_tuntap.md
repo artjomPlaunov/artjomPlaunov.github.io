@@ -321,5 +321,6 @@ Now there is basic infrastructure set up to go about implementing TCP as a user 
 - [TUN/TAP Docs](https://docs.kernel.org/networking/tuntap.html)
 - [RFC 1918 - Private Internets](https://datatracker.ietf.org/doc/html/rfc1918)
 - [RFC 791 - IP](https://datatracker.ietf.org/doc/html/rfc1918)
+- [kernel tuntap docs](https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
 
 
