@@ -31,6 +31,8 @@ github_username:  artjomPlaunov
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-remote-theme
+  - jekyll-sass-converter
 
 # Exclude from processing.
 # The following items will not be processed, by default.
