@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  TCP/IP in OCaml 1- TUN/TAP and IP Packet Parsing
+title:  TCP/IP in OCaml - TUN/TAP and IP Packet Parsing
 date:   2025-04-21 12:06:35 -0400
 categories: ocaml networking systems
 tags: [ocaml, tun, tap, networking, packet-parsing, systems-programming]
@@ -27,7 +27,7 @@ Instead, we can create a virtual network interface. This is not exactly what the
 
 Now, even though our TCP program is running locally, I find it helpful to think of the assigned address space to be "external" to the local network on my machine; we have an interface via which packets can be sent (reading and writing to the file descriptor created by the ioctl system call). It can be seen in analogy to existing network interfaces on your system that correspond to physical mediums. 
 
-For example, if you send a packet over the wifi interface, you can imagine that it will be handled externally; similarly, if the kernel receives and sends a packet over the tun device, it gets routed to the user space program that will handle all packets in the assigned address space. Instead of an OS and TCP stack, we have our own program!
+For example, if you send a packet over the wifi interface, you can imagine that it will be handled externally; similarly, if the kernel receives and sends a packet over the tun device, it gets routed to the user space program that will handle all packets in the assigned address space. Instead of an OS with network and TCP stacks, we have a user space program handling all the packets coming in. 
 
 ```ascii
 Local Machine
@@ -50,10 +50,66 @@ Local Machine
 |         v                      v                      v            |
 |  +----------------+     +----------------+     +----------------+  |
 |  |                |     |                |     |                |  |
-|  |  Router/       |     |  WiFi          |     |  My Tcp        |  |
-|  |  Switch        |     |  Network       |     |  Program**     |  |
+|  |  Router/       |     |  WiFi          |     |  MyTcpProgram  |  |
+|  |  Switch        |     |  Network       |     |                |  |
 |  |                |     |                |     |                |  |
 |  +----------------+     +----------------+     +----------------+  |
 |                                                                    |
 +--------------------------------------------------------------------+
 ```
+
+So in "MyTcpProgram" within the above diagram, we can think of it as being in its own network space. Our program can write a packet over the device, and that will send the packet into the kernel's network stack, and it gets routed to where it needs to go. Vice versa, if a packet gets routed to the tun device, that packet ends up in the user space program. 
+
+## ocaml-tuntap
+
+As mentioned previously, there is an OCaml library that handles creating this virtual network interface by performing an ioctl system call. The ocaml-tuntap library is part of the MirageOS project which I thought was a neat connection. You can take a look at the source code, and see some of the ioctl stubs:
+
+```c
+//turntap_stubs.c
+...
+...
+  if (group != -1) {
+    if(ioctl(fd, TUNSETGROUP, group) < 0)
+      tun_raise_error("TUNSETGROUP", fd);
+...
+...
+```
+Upon successful return you get a file descriptor corresponding to the virtual network interface. 
+
+## tun.ml
+
+Now we will create our own tun module, which will be a handle for a tun device. Here is the code: 
+
+```ocaml
+(* tun.ml *)
+type t = {
+  fd : Unix.file_descr;
+  name : string;
+}
+
+let create name =
+  let fd, actual_name = Tuntap.opentun ~devname:name () in
+  Unix.clear_nonblock fd;
+  { fd; name = actual_name }
+
+let close t = Unix.close t.fd
+
+let rec read_n t buf offset n =
+  if n <= 0 then n
+  else
+    let len = Unix.read t.fd buf offset n in
+    if len = 0 then raise End_of_file;
+    if len < n then begin
+      offset + len
+    end else
+      read_n t buf (offset + len) (n - len)
+
+let read t buf =
+  let len = read_n t buf 0 (Bytes.length buf) in
+  Bytes.sub buf 0 len
+
+let write t buf =
+  let len = Unix.write t.fd buf 0 (Bytes.length buf) in
+  len 
+```
+
