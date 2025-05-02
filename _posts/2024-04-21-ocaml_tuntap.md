@@ -53,34 +53,7 @@ packets via physical media sends them to the user space program.
 
 I can best explain what is going on with a diagram 
 
-```ascii
-Local Machine
-+--------------------------------------------------------------------+
-|                                                                    |
-|  +--------------------------------------------------------------+  |
-|  |                                                              |  |
-|  |                 Kernel Network Stack                         |  |
-|  |                                                              |  |
-|  +--------------------------------------------------------------+  |
-|         ^                      ^                      ^            | 
-|         |                      |                      |            |
-|         v                      v                      v            |
-|  +----------------+     +----------------+     +----------------+  |
-|  |                |     |                |     |                |  |
-|  |    eth0        |     |    wlan0       |     |    tun0        |  |
-|  |  (Ethernet)    |     |                |     |  (Virtual)     |  |
-|  +----------------+     +----------------+     +----------------+  |
-|         |                      |                      |            |
-|         v                      v                      v            |
-|  +----------------+     +----------------+     +----------------+  |
-|  |                |     |                |     |                |  |
-|  |  Ethernernet   |     |  WiFi          |     |  MyTcpProgram  |  |
-|  |  hardware      |     |                |     |                |  |
-|  |                |     |                |     |                |  |
-|  +----------------+     +----------------+     +----------------+  |
-|                                                                    |
-+--------------------------------------------------------------------+
-```
+![Network Stack Diagram](/assets/images/tun-tap.png)
 
 For the usual network interfaces, for example eth0, there is a physical media backing (ethernet for example). Packets are received and sent back over an ethernet device. We can think of the "physical media" of the tun device being our user space program. Instead of receiving packets from some hardware, it receives packets from our user space program. And going the other way around, when we write packets to the device, they are written to our program. 
 
@@ -182,6 +155,15 @@ let main () =
 
 let () = main () 
 ```
+
+The key points here are the terminal commands that are being invoked from the OCaml program, these are:
+
+```
+ip addr add 10.0.0.1 peer 10.0.0.2 dev tun0
+ip link set tun0 up
+```
+
+The device itself was created with magic from the tun-tap library, but once we have the device we want to assign an IP address to it. We assign a private IP address of 10.0.0.1, which is the address of the device, and the peer endpoint 10.0.0.2 is our userspace program. 
 
 ## ip.ml
 
