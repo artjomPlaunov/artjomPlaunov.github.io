@@ -5,15 +5,15 @@
 // ============================================
 // Color Palette
 // ============================================
-$bg:           #161616;
-$bg-elevated:  #1c1c1c;
-$surface:      #232323;
-$text:         #c8c8c8;
-$text-bright:  #e4e4e4;
-$text-muted:   #777;
-$accent:       #d4a373;
-$accent-hover: #e4bf96;
-$border:       #2a2a2a;
+$bg:           #1e3a1e;
+$bg-elevated:  #243d24;
+$surface:      #2d4a2d;
+$text:         #e0d6c2;
+$text-bright:  #ece4d4;
+$text-muted:   #8a9a7a;
+$accent:       #c9a84c;
+$accent-hover: #dbbe66;
+$border:       #2a4a2a;
 
 // Syntax highlighting (One Dark inspired)
 $syn-keyword:  #c678dd;
@@ -43,7 +43,7 @@ body {
 // ============================================
 h1, h2, h3, h4, h5, h6 {
   font-family: "Inter", -apple-system, sans-serif;
-  color: $text-bright;
+  color: $accent;
   font-weight: 600;
   line-height: 1.3;
   margin-top: 2em;
@@ -61,12 +61,12 @@ p, li, span {
 }
 
 a {
-  color: $accent;
+  color: $accent !important;
   text-decoration: none;
   transition: color 0.15s ease;
 
   &:hover {
-    color: $accent-hover;
+    color: $accent-hover !important;
   }
 }
 
@@ -110,18 +110,18 @@ hr {
 }
 
 .site-title {
-  color: $text-bright;
+  color: $accent;
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: -0.02em;
 
   &:hover {
-    color: $accent;
+    color: $accent-hover;
     text-decoration: none;
   }
 
   &, &:visited {
-    color: $text-bright;
+    color: $accent;
   }
 }
 
@@ -175,7 +175,7 @@ hr {
 }
 
 .post-link {
-  color: $text-bright;
+  color: $accent;
   font-size: 1.35rem;
   font-weight: 600;
   line-height: 1.4;
@@ -196,7 +196,7 @@ hr {
 .post-title {
   font-size: 2em;
   letter-spacing: -0.02em;
-  color: $text-bright;
+  color: $accent;
   line-height: 1.2;
 }
 
