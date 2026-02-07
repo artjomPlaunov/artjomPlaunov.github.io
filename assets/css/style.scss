@@ -2,325 +2,395 @@
 ---
 @import "minima";
 
-// Forest Theme Colors
-$forest-dark: #1e3a1e;    // Deep forest green background
-$forest-medium: #2d4a2d;  // Medium forest green for code blocks
-$forest-light: #3a5a3a;   // Light forest green for accents
-$text-light: #e0e0e0;     // Light text
-$accent-gold: #d4af37;    // Gold accent color
-$border-color: #2a3a2a;   // Dark green border
+// ============================================
+// Color Palette
+// ============================================
+$bg:           #161616;
+$bg-elevated:  #1c1c1c;
+$surface:      #232323;
+$text:         #c8c8c8;
+$text-bright:  #e4e4e4;
+$text-muted:   #777;
+$accent:       #d4a373;
+$accent-hover: #e4bf96;
+$border:       #2a2a2a;
 
-// Code block colors
-$code-text: #d8e0d8;      // Light green text
-$code-keyword: #ffd700;   // Gold keywords
-$code-string: #98c379;    // Light green strings
-$code-number: #d19a66;    // Orange numbers
-$code-comment: #7a8a7a;   // Grey-green comments
-$code-function: #61afef;  // Blue functions
-$code-type: #e5c07b;      // Yellow types
-$code-operator: #56b6c2;  // Cyan operators
+// Syntax highlighting (One Dark inspired)
+$syn-keyword:  #c678dd;
+$syn-string:   #98c379;
+$syn-number:   #d19a66;
+$syn-comment:  #5c6370;
+$syn-function: #61afef;
+$syn-type:     #e5c07b;
+$syn-operator: #56b6c2;
+$syn-text:     #abb2bf;
 
-// Global forest theme styles
-body, 
-div, 
-section, 
-article, 
-aside, 
-header, 
-footer, 
-nav, 
-main {
-  background-color: $forest-dark;
-  color: $text-light;
-}
-
-// Text elements
-h1, h2, h3, h4, h5, h6,
-p, li, a, span, strong, em,
-blockquote, cite, figcaption {
-  color: $text-light;
-}
-
-// Links
-a {
-  color: $accent-gold;
-  text-decoration: none;
-  
-  &:hover {
-    color: lighten($accent-gold, 10%);
-  }
-}
-
-// Code and pre blocks
-pre, code {
-  font-family: "IBM Plex Mono", "Menlo", "DejaVu Sans Mono", monospace;
-  background-color: $forest-medium !important;
-  border: 1px solid $border-color;
-  color: $code-text;
-  border-radius: 4px;
-  padding: 0.2em 0.4em;
-  font-size: 1.1em;
-}
-
-pre {
-  padding: 1em;
-  overflow-x: auto;
-  line-height: 1.5;
-  margin: 1.5em 0;
-  background-color: $forest-medium !important;
-  font-size: 1.1em;
-  
-  code {
-    background-color: transparent !important;
-    border: none;
-    padding: 0;
-    font-size: 0.9em;
-  }
-}
-
-// Syntax highlighting
-.highlight {
-  background-color: $forest-medium !important;
-  border-radius: 4px;
-  border: 1px solid $border-color;
-  margin: 1.5em 0;
-  font-size: 1.1em;
-  
-  pre {
-    margin: 0;
-    padding: 1em;
-    background-color: $forest-medium !important;
-    font-size: 0.9em;
-  }
-  
-  // Keyword
-  .k, .kd, .kt {
-    color: $code-keyword;
-  }
-  
-  // String
-  .s, .s1, .s2 {
-    color: $code-string;
-  }
-  
-  // Number
-  .mi, .mf {
-    color: $code-number;
-  }
-  
-  // Comment
-  .c, .cm, .c1 {
-    color: $code-comment;
-    font-style: italic;
-  }
-  
-  // Function
-  .nf, .nc {
-    color: $code-function;
-  }
-  
-  // Type and Module names
-  .kt, .nc {
-    color: $code-type;
-  }
-  
-  // Module qualifier (like Bytes in Bytes.create)
-  pre.highlight .nn,
-  .highlight pre .nn,
-  .highlight .nn {
-    color: #d19a66 !important; // Using the exact hex color instead of variable
-  }
-  
-  // Operator
-  .o, .p {
-    color: $code-operator;
-  }
-  
-  // Variable
-  .nv, .vc {
-    color: $code-text;
-  }
-}
-
-// Tables
-table {
-  background-color: $forest-medium;
-  border: 1px solid $border-color;
-  
-  th, td {
-    border: 1px solid $border-color;
-    color: $text-light;
-  }
-}
-
-// Forms
-input, textarea, select {
-  background-color: $forest-medium;
-  border: 1px solid $border-color;
-  color: $text-light;
-  
-  &:focus {
-    border-color: $accent-gold;
-    outline: none;
-  }
-}
-
-// Main body styles
+// ============================================
+// Base
+// ============================================
 body {
-  font-family: "IBM Plex Mono", "Menlo", "DejaVu Sans Mono", monospace;
-  font-size: 28px;
-  line-height: 1.8;
-  letter-spacing: -0.003em;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.75;
+  background: $bg;
+  color: $text;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+// ============================================
+// Typography
+// ============================================
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Inter", -apple-system, sans-serif;
+  color: $text-bright;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.25em; }
+h4 { font-size: 1.1em; }
+h5, h6 { font-size: 1em; }
+
+p, li, span {
+  color: $text;
+}
+
+a {
+  color: $accent;
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: $accent-hover;
+  }
+}
+
+strong { color: $text-bright; }
+
+blockquote {
+  border-left: 3px solid $accent;
+  padding-left: 1.25em;
+  color: $text-muted;
+  font-style: italic;
+  margin: 1.5em 0;
+  background: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid $border;
+  margin: 2em 0;
+}
+
+// ============================================
+// Layout
+// ============================================
+.wrapper {
+  max-width: 820px;
+  padding: 0 1.5rem;
+}
+
+.page-content {
+  padding: 2rem 0;
+  background: $bg;
+}
+
+// ============================================
+// Header
+// ============================================
 .site-header {
-  border-top: 5px solid $accent-gold;
-  border-bottom: 1px solid $border-color;
-  background-color: $forest-dark;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.2);
+  background: $bg-elevated;
+  border-top: 3px solid $accent;
+  border-bottom: 1px solid $border;
 }
 
 .site-title {
-  font-family: "Source Sans Pro", sans-serif;
-  color: $text-light !important;
+  color: $text-bright;
   font-weight: 700;
+  font-size: 1.25rem;
   letter-spacing: -0.02em;
-  
+
   &:hover {
-    color: $accent-gold !important;
+    color: $accent;
     text-decoration: none;
   }
+
+  &, &:visited {
+    color: $text-bright;
+  }
+}
+
+.site-nav {
+  .page-link {
+    color: $text-muted;
+    font-size: 0.95rem;
+
+    &:hover {
+      color: $text-bright;
+    }
+  }
+
+  .menu-icon > svg {
+    fill: $text-muted;
+  }
+
+  @media screen and (max-width: 600px) {
+    background-color: $bg-elevated;
+    border: 1px solid $border;
+  }
+}
+
+// ============================================
+// Post List (Home)
+// ============================================
+.post-list-heading {
+  color: $text-bright;
 }
 
 .post-list {
-  li {
-    margin-bottom: 3.5rem;
-    padding: 2rem;
-    background: $forest-medium;
-    border-radius: 12px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
-    
-    &:hover {
-      transform: translateY(-2px);
-    }
-  }
-}
+  margin-left: 0;
+  list-style: none;
 
-.post-link {
-  color: $text-light;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 1.8em;
-  font-weight: 700;
-  line-height: 1.3;
-  
-  &:hover {
-    color: $accent-gold;
-    text-decoration: none;
+  > li {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid $border;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 
 .post-meta {
-  color: #a0b0a0;
-  font-style: italic;
-  font-size: 0.9em;
+  color: $text-muted;
+  font-size: 0.875rem;
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
+.post-link {
+  color: $text-bright;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.4;
+
+  &:hover {
+    color: $accent;
+    text-decoration: none;
+  }
+}
+
+// ============================================
+// Post Content
+// ============================================
+.post-header {
+  margin-bottom: 2rem;
+}
+
+.post-title {
+  font-size: 2em;
+  letter-spacing: -0.02em;
+  color: $text-bright;
+  line-height: 1.2;
+}
+
+.post-content {
+  h2 {
+    margin-top: 2.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid $border;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin: 1.5em 0;
+  }
+}
+
+// ============================================
+// Code
+// ============================================
+code {
+  font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  font-size: 0.875em;
+  background: $surface !important;
+  color: $syn-text;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  border: none;
+}
+
+pre {
+  background: $surface !important;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 1.25em;
+  overflow-x: auto;
+  line-height: 1.6;
+  margin: 1.5em 0;
+
+  code {
+    background: none !important;
+    padding: 0;
+    font-size: 0.85em;
+    color: $syn-text;
+  }
+}
+
+.highlighter-rouge {
+  .highlight {
+    background: $surface !important;
+  }
+}
+
+.highlight {
+  background: $surface !important;
+  border-radius: 6px;
+  border: 1px solid $border;
+  margin: 1.5em 0;
+
+  pre {
+    margin: 0;
+    border: none;
+    background: $surface !important;
+  }
+
+  pre.highlight {
+    background: $surface !important;
+  }
+
+  .k, .kd, .kn, .kp, .kr, .kt { color: $syn-keyword; }
+  .s, .s1, .s2, .sr { color: $syn-string; }
+  .mi, .mf, .mh, .il { color: $syn-number; }
+  .c, .cm, .c1, .cs { color: $syn-comment; font-style: italic; }
+  .nf, .nb { color: $syn-function; }
+  .nc, .nn { color: $syn-type; }
+  .o, .p { color: $syn-operator; }
+  .nv, .vc, .vg, .vi { color: $syn-text; }
+  .na { color: $syn-function; }
+  .nt { color: $syn-keyword; }
+  .err { color: #e06c75; background: none !important; }
+}
+
+// ============================================
+// Tables
+// ============================================
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9em;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 4px;
+  overflow: hidden;
+
+  th {
+    background: $bg-elevated;
+    color: $text-bright;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75em 1em;
+    border-bottom: 2px solid $border;
+  }
+
+  td {
+    padding: 0.75em 1em;
+    border-bottom: 1px solid $border;
+    color: $text;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+// ============================================
+// Footer
+// ============================================
 .site-footer {
-  background-color: $forest-dark;
-  color: $text-light;
-  border-top: 1px solid $border-color;
-  padding: 2rem 0;
-  
+  background: $bg-elevated;
+  border-top: 1px solid $border;
+  color: $text-muted;
+  padding: 1.5rem 0;
+  font-size: 0.875rem;
+
   a {
-    color: #a0b0a0;
-    
+    color: $text-muted;
+
     &:hover {
-      color: $accent-gold;
-      text-decoration: none;
+      color: $accent;
     }
   }
 }
 
-.page-content {
-  padding: 3rem 0;
-  
-  .wrapper {
-    max-width: 1400px;
-  }
+.footer-col-wrapper {
+  color: $text-muted;
+  font-size: inherit;
 }
 
+// ============================================
+// Custom Content Blocks (used in blog posts)
+// ============================================
 .transaction-block {
-  background: $forest-medium;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border-left: 4px solid $accent-gold;
-  margin: 2rem 0;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  background: $surface;
+  padding: 1.25rem;
+  border-radius: 6px;
+  border-left: 3px solid $accent;
+  margin: 1.5em 0;
 }
 
 .transaction {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.9em;
-  color: $text-light;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875em;
+  color: $text;
   padding: 0.5rem 0;
-  
+
   &:first-of-type {
-    border-bottom: 1px solid $border-color;
-    padding-bottom: 1rem;
+    border-bottom: 1px solid $border;
+    padding-bottom: 0.75rem;
   }
-  
+
   &:last-of-type {
-    padding-top: 1rem;
+    padding-top: 0.75rem;
   }
 }
 
 .schedule-block {
-  background: $forest-medium;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin: 1.5rem 0;
-  border: 1px solid $border-color;
-  
+  background: $surface;
+  padding: 1.25rem;
+  border-radius: 6px;
+  margin: 1.5em 0;
+  border: 1px solid $border;
+
   code {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.9em;
-    background: $forest-dark;
-    padding: 0.3em 0.5em;
-    border-radius: 4px;
-    border: 1px solid $border-color;
+    background: $bg;
   }
 }
 
-// Header styles
-h1, h2, h3, h4, h5, h6 {
-  color: $accent-gold;
-  font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  line-height: 1.3;
-}
+// ============================================
+// Responsive
+// ============================================
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 16px;
+  }
 
-h1 {
-  font-size: 2.2em;
-  border-bottom: 2px solid $border-color;
-  padding-bottom: 0.3em;
-}
+  .wrapper {
+    padding: 0 1rem;
+  }
 
-h2 {
-  font-size: 1.8em;
-  border-bottom: 1px solid $border-color;
-  padding-bottom: 0.2em;
-}
+  h1 { font-size: 1.6em; }
+  h2 { font-size: 1.3em; }
 
-h3 {
-  font-size: 1.5em;
+  .post-link {
+    font-size: 1.15rem;
+  }
 }
-
-h4 {
-  font-size: 1.3em;
-}
-
-h5, h6 {
-  font-size: 1.1em;
-} 
