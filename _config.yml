@@ -28,6 +28,9 @@ github_username:  artjomPlaunov
 
 # Build settings
 theme: minima
+feed:
+  posts_limit: 0
+
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
