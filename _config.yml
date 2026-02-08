@@ -29,7 +29,7 @@ github_username:  artjomPlaunov
 # Build settings
 theme: minima
 feed:
-  posts_limit: 0
+  posts_limit: 1000
 
 plugins:
   - jekyll-feed
