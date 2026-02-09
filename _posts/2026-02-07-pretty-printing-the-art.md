@@ -34,6 +34,7 @@ Let's start with initializing an index and inserting an element into the tree:
 
 ```sql
 CREATE TABLE t(s VARCHAR(5))
+CREATE INDEX idx ON t(s)
 INSERT INTO t VALUES ('gnome')
 ```
 
