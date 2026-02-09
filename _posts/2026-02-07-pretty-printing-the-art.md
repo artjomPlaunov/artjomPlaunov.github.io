@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Pretty Printing ART (Adaptive Radix Tree) in DuckDB"
+title: "Pretty Printing the ART (Adaptive Radix Tree) in DuckDB"
 date: 2026-02-09
 categories:
 ---
@@ -8,8 +8,7 @@ categories:
 In this post I'm going to give a very casual overview of the ART (adaptive radix tree)[^1] data 
 structure used for indexing in DuckDB. [^2] This is mainly to give a feel of the data structure 
 as a whole without any concerns for how it is integrated into the database. I haven't written in 
-a while, so I thought showing a pretty printer would be a fun and easy post to write :-) I hope 
-to do some deeper dives on the internals after some features and refactorings are added:
+a while, so I thought showing a pretty printer would be a fun and easy post to write :-) 
 
 I made 
 the pretty printer by prettifying some existing printing code that was in the code base, 
