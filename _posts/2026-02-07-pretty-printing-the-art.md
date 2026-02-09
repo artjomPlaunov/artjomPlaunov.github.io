@@ -27,7 +27,8 @@ space horizontally,
 by adaptively changing the node size 
 depending on how many elements are currently being stored in the node (Nodes can store 4, 16, 48,
 or 256 
-children). Note this also means all operations are done in place.
+children). Of course, there is a lot more to be said about it and stuff that has changed since 
+the last blog post on it, which I will save for later :) [^3][^4].
 
 Let's start with initializing an index and inserting an element into the tree:
 
@@ -211,4 +212,6 @@ This was a pretty cursory glance at the ART, I hope to share more!
 ---
 
 [^1]: Leis, V., Kemper, A., & Neumann, T. (2013). *The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases*. [PDF](https://www.db.in.tum.de/~leis/papers/ART.pdf)
-[^2]: Although the version I'm showing here is not yet merged, but I'm using it since it has lines, like the ```tree``` command in linux. I'm waiting to add support to print UTF-8 characters as well before merging it upstream. 
+[^2]: Although the version I'm showing here is not yet merged, but I'm using it since it has lines, like the ```tree``` command in linux. I'm waiting to add support to print UTF-8 characters as well before merging it upstream.
+[^3]: Holanda, P. (2022). *Persistent Storage of Adaptive Radix Trees (ART) in DuckDB*. [Blog](https://duckdb.org/2022/07/27/art-storage)
+[^4]: Bogatsch, T. *Indexes Are (Not) All You Need: Common DuckDB Pitfalls and How to Find Them*. [Talk](https://duckdb.org/library/indexes-are-not-all-you-need/)
